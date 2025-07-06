@@ -72,4 +72,5 @@ Deployment Options
    - Pre-built virtual machines
    - 
    # output
-   
+
+  ![Image](https://github.com/user-attachments/assets/b1be8bb7-8b8e-4dd1-8e0a-c343341b1f83)
