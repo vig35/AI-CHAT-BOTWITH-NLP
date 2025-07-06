@@ -73,5 +73,4 @@ Deployment Options
    - 
    # output
 
-    https://github.com/user-attachments/assets/016cf5bc-f178-4e38-99a7-a524f5eba925
-  
+   ![Image](https://github.com/user-attachments/assets/016cf5bc-f178-4e38-99a7-a524f5eba925)
