@@ -1,0 +1,44 @@
+import sys
+import nltk
+from nltk.chat.util import Chat, reflections
+
+class TerminalBot:
+    def __init__(self):
+        self.pairs = [
+            [r"hi|hello|hey", ["Hello! How can I help you today?", "Hi there! What brings you here?"]],
+            [r"what is your name?", ["I'm TerminalBot, your command-line assistant!", "You can call me TerminalBot!"]],
+            [r"how are you?", ["I'm functioning optimally, thank you!", "All systems operational! How about you?"]],
+            [r"(.*)(your creator|who made you)", ["I was created using Python and NLTK!", "I come from lines of Python code!"]],
+            [r"what can you do?", ["I can chat with you, answer basic questions, and keep you company!", "I use simple NLP to talk with you."]],
+            [r"thank you|thanks", ["You're welcome!", "Happy to help!", "No problem!"]],
+            [r"(.*)(weather|temperature)(.*)", ["I'm not connected to weather services, but try a weather website!", "I can't fetch weather data yet."]],
+            [r"(.*)(time|date)", ["Check your system clock for accurate time and date!", "I'm not synced with real-time services."]],
+            [r"quit|exit|bye|goodbye", ["Goodbye! Come chat anytime.", "See you later!", "Take care!"]],
+            [r"(.*)", ["I'm still learning. Can you rephrase?", "I didn't understand that. Try again?", "Interesting! But I'm not sure how to respond."]]
+        ]
+        self.chatbot = Chat(self.pairs, reflections)
+
+    def start(self):
+        print("\n" + "=" * 50)
+        print("Welcome to TerminalBot!".center(50))
+        print("Type 'quit' to end the chat.".center(50))
+        print("=" * 50 + "\n")
+        self.chatbot.converse()
+
+def check_nltk_data():
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        print("Downloading required NLTK data...")
+        nltk.download('punkt', quiet=True)
+        print("Download complete!")
+
+def main():
+    check_nltk_data()
+    bot = TerminalBot()
+    bot.start()
+    input("\nPress Enter to exit...")
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()
