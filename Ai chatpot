@@ -1,0 +1,60 @@
+import sys
+import nltk
+import pyttsx3
+from nltk.chat.util import Chat, reflections
+
+# Initialize text-to-speech engine
+engine = pyttsx3.init()
+
+def speak(text):
+    print(f"Bot: {text}")
+    engine.say(text)
+    engine.runAndWait()
+
+class TerminalBot:
+    def __init__(self):
+        self.pairs = [
+            [r"hi|hello|hey", ["Hello! How can I help you today?", "Hi there! What brings you here?"]],
+            [r"what is your name?", ["I'm TerminalBot, your voice assistant!", "You can call me TerminalBot!"]],
+            [r"how are you?", ["I'm functioning optimally, thank you!", "All systems operational!"]],
+            [r"(.*)(your creator|who made you)", ["I was created using Python and NLTK!", "My creator used Python magic."]],
+            [r"what can you do?", ["I can chat, talk, and help with simple tasks!", "I speak, understand and reply – like a mini assistant."]],
+            [r"thank you|thanks", ["You're welcome!", "Glad to help!", "No problem!"]],
+            [r"(.*)(weather|temperature)(.*)", ["I'm not connected to weather services yet!", "Try checking a weather app."]],
+            [r"(.*)(time|date)", ["Check your system clock for accurate time and date!", "I don't have real-time access yet."]],
+            [r"quit|exit|bye|goodbye", ["Goodbye! Chat again soon!", "See you later!", "Take care!"]],
+            [r"(.*)", ["Sorry, I didn't get that.", "Can you rephrase?", "Hmm... not sure how to respond."]]
+        ]
+        self.chat = Chat(self.pairs, reflections)
+
+    def start(self):
+        print("\n" + "=" * 50)
+        speak("Welcome to TerminalBot with voice!")
+        print("Type 'quit' to exit.".center(50))
+        print("=" * 50 + "\n")
+
+        while True:
+            user_input = input("You: ").lower()
+            if user_input in ['quit', 'exit', 'bye', 'goodbye']:
+                speak("Goodbye! Talk to you again soon.")
+                break
+            response = self.chat.respond(user_input)
+            speak(response)
+
+def check_nltk_data():
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        print("Downloading required NLTK data...")
+        nltk.download('punkt', quiet=True)
+        print("Download complete!")
+
+def main():
+    check_nltk_data()
+    bot = TerminalBot()
+    bot.start()
+    input("\nPress Enter to exit...")
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()
